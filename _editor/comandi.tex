@@ -1,0 +1,187 @@
+% comandi.tex — i comandi "\" dell'editor
+%
+% Nell'editor scrivi \ e l'inizio del nome: compare la lista, Invio (o Tab)
+% sostituisce il comando con il blocco Quarto qui sotto. Il file e' tuo:
+% aggiungi, togli, cambia. Si ricarica da solo a ogni apertura dell'editor.
+%
+%   \newcommand{\nome}{descrizione}
+%   ...il testo che entra nel documento...
+%   \endcommand
+%
+% \cursor segna dove finisce il cursore dopo l'inserimento.
+% Le righe fuori da \newcommand ... \endcommand sono commenti.
+
+% --- Struttura -----------------------------------------------------------------
+
+\newcommand{\section}{Titolo di sezione (##)}
+## \cursor
+\endcommand
+
+\newcommand{\subsection}{Sottosezione (###)}
+### \cursor
+\endcommand
+
+\newcommand{\label}{Etichetta per i rimandi, da mettere dopo un titolo}
+{#sec-\cursor}
+\endcommand
+
+\newcommand{\ref}{Rimando a un'etichetta: @sec-nome}
+@sec-\cursor
+\endcommand
+
+\newcommand{\footnote}{Nota a piè di pagina}
+^[\cursor]
+\endcommand
+
+% --- Testo ---------------------------------------------------------------------
+
+\newcommand{\textbf}{Grassetto}
+**\cursor**
+\endcommand
+
+\newcommand{\emph}{Corsivo}
+*\cursor*
+\endcommand
+
+\newcommand{\texttt}{Codice in linea}
+`\cursor`
+\endcommand
+
+\newcommand{\href}{Link}
+[\cursor](https://)
+\endcommand
+
+\newcommand{\quote}{Citazione}
+> \cursor
+\endcommand
+
+\newcommand{\itemize}{Elenco puntato}
+- \cursor
+-
+\endcommand
+
+\newcommand{\enumerate}{Elenco numerato}
+1. \cursor
+2.
+\endcommand
+
+% --- Matematica, figure, tabelle ---------------------------------------------------
+
+\newcommand{\equation}{Equazione numerata}
+$$
+\cursor
+$$ {#eq-nome}
+\endcommand
+
+\newcommand{\includegraphics}{Immagine con didascalia}
+![\cursor](images/nome-file.png){fig-alt="" width=80%}
+\endcommand
+
+\newcommand{\tabular}{Tabella markdown}
+| Modello | MAE | Baseline |
+|---|---:|---:|
+| \cursor |  |  |
+\endcommand
+
+\newcommand{\lstlisting}{Blocco di codice Python}
+```python
+\cursor
+```
+\endcommand
+
+\newcommand{\embed}{Cella di un notebook in posts/_notebooks/}
+{{< embed _notebooks/\cursor.ipynb#etichetta >}}
+\endcommand
+
+% --- Blocchi del sito (le classi stanno in styles.css) --------------------------------
+
+\newcommand{\hero}{Apertura grande, come in home}
+::: {.hero}
+
+::: {.hero-meta}
+Milan, Italy · \cursor
+:::
+
+# Titolo {.no-anchor}
+
+::: {.lede}
+Due righe che dicono chi sei e cosa fai.
+:::
+
+:::
+\endcommand
+
+\newcommand{\sectionrule}{Titoletto di sezione con filetto, come in home}
+::: {.section-rule}
+\cursor
+:::
+\endcommand
+
+\newcommand{\projectcard}{Scheda progetto}
+::: {.project-card}
+### [\cursor](projects/slug/index.qmd)
+
+Una frase su cosa hai costruito e a quale domanda risponde.
+
+::: {.stack}
+Python · pandas
+:::
+:::
+\endcommand
+
+\newcommand{\stack}{Riga di tecnologie in monospazio}
+::: {.stack}
+\cursor
+:::
+\endcommand
+
+\newcommand{\tag}{Etichetta piccola}
+[\cursor]{.tag}
+\endcommand
+
+\newcommand{\morelink}{Link "vedi tutto →"}
+[\cursor →](writing.qmd){.more-link}
+\endcommand
+
+\newcommand{\readinglist}{Lista di libri, come in Reading}
+<ul class="reading-list">
+<li><span class="status now">Reading</span><span><em>\cursor</em> <span class="book-author">— Autore</span></span></li>
+<li><span class="status">Finished</span><span><em>Titolo</em> <span class="book-author">— Autore</span></span></li>
+</ul>
+\endcommand
+
+% --- Impaginazione Quarto ------------------------------------------------------------
+
+\newcommand{\callout}{Riquadro nota (note, tip, warning, important)}
+::: {.callout-note}
+## \cursor
+:::
+\endcommand
+
+\newcommand{\columns}{Due colonne affiancate}
+:::: {.columns}
+::: {.column width="50%"}
+\cursor
+:::
+::: {.column width="50%"}
+
+:::
+::::
+\endcommand
+
+\newcommand{\marginpar}{Nota a margine}
+::: {.column-margin}
+\cursor
+:::
+\endcommand
+
+\newcommand{\widefigure}{Blocco piu' largo della colonna di testo}
+::: {.column-page}
+\cursor
+:::
+\endcommand
+
+\newcommand{\newpage}{Filetto orizzontale}
+---
+\cursor
+\endcommand

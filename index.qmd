@@ -1,0 +1,43 @@
+---
+pagetitle: "Alessandro Caforio"
+description: "Data analyst in Milan working on demand forecasting, time series, and reproducible analysis."
+toc: false
+---
+
+::: {.hero}
+
+::: {.hero-meta}
+Data analyst · Milan, Italy
+:::
+
+# Alessandro Caforio {.no-anchor}
+
+::: {.lede}
+I work on **demand forecasting** in retail, where the hard part is often making
+the data and evaluation trustworthy enough to guide a decision.
+
+Here I use public datasets to test forecasting methods, build the underlying
+tools, and show the baselines alongside the results.
+:::
+
+[Explore the project →](projects/energy-demand/index.qmd){.hero-link}
+[About & contact](about.qmd){.hero-link .hero-link-secondary}
+
+:::
+
+::: {.section-rule}
+Selected work
+:::
+
+::: {.project-card}
+### [Italian electricity demand — forecasting from the ground up](projects/energy-demand/index.qmd)
+
+I built a pipeline for Terna's public electricity load data and tested simple
+forecasts on national demand. In a February 2026 benchmark, the same time last
+week baseline had **946 MW MAE**; Terna's published forecast had **531 MW MAE**
+on the same 2,688 observations. The project page shows the method and limits.
+
+::: {.stack}
+Python · pandas · time series · data quality
+:::
+:::

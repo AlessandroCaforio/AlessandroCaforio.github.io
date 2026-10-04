@@ -1,0 +1,19 @@
+---
+title: "Notebooks"
+draft: true
+description: "The methods of ISLP, derived by hand and implemented in numpy."
+listing:
+  contents: "notebooks/**/*.ipynb"
+  type: default
+  sort: "date desc"
+  categories: true
+  fields: [date, title, description, categories]
+  date-format: "D MMM YYYY"
+toc: false
+---
+
+The objective of these notebooks is to rebuild the methods of *An Introduction
+to Statistical Learning* chapter by chapter, without using a library for the
+model. For every method we first derive the result by hand, then we implement it
+in `easylearn`, a small package I am writing along the way, and only at the end
+we check the numbers against scikit-learn.

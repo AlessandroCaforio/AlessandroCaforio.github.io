@@ -1,0 +1,7 @@
+# Profilo usato SOLO dall'editor (_editor/server.py lancia
+# `quarto render --profile editor`). Nell'anteprima dell'editor le bozze si
+# vedono, anche nelle liste della home e di Writing, come in `quarto preview`.
+# `quarto render` normale e la CI non attivano questo profilo: online le bozze
+# restano fuori.
+website:
+  draft-mode: visible

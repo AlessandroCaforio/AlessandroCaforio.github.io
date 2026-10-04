@@ -1,0 +1,56 @@
+[
+  {
+    "id": "carta",
+    "nome": "Carta",
+    "descrizione": "Avorio e terracotta, tutto serif. Il tema con cui è nato il sito.",
+    "light": { "paper": "#fbfaf7", "ink": "#1c1b19", "ink-muted": "#6b6862", "accent": "#a63d1f", "accent-soft": "#f0e3dd", "rule": "#e5e1d8", "surface": "#f3f0e9", "code-color": "#7a3a12" },
+    "dark": { "paper": "#15161b", "ink": "#e6e4df", "ink-muted": "#98948c", "accent": "#e08a5a", "accent-soft": "#2c2119", "rule": "#2a2c34", "surface": "#1c1e25", "code-color": "#f0a878" },
+    "type": { "font-family-base": "$font-family-serif", "headings-font-family": "$font-family-serif", "font-size-root": "19px", "line-height-base": "1.65", "headings-font-weight": "600" },
+    "css": { "measure": "44rem", "section-gap": "3.5rem", "radius": "3px", "nav-case": "uppercase" }
+  },
+  {
+    "id": "inchiostro",
+    "nome": "Inchiostro",
+    "descrizione": "Carta fredda e blu stilografica. Testo serif, titoli sans.",
+    "light": { "paper": "#f7f8fa", "ink": "#151a23", "ink-muted": "#5c6573", "accent": "#1f4fa3", "accent-soft": "#e3eaf6", "rule": "#dfe3ea", "surface": "#eef1f5", "code-color": "#1d4280" },
+    "dark": { "paper": "#0f131a", "ink": "#e3e7ee", "ink-muted": "#8f98a6", "accent": "#7fa8f0", "accent-soft": "#17233a", "rule": "#232a36", "surface": "#161c26", "code-color": "#9dbcf5" },
+    "type": { "font-family-base": "$font-family-serif", "headings-font-family": "$font-family-sans-serif", "font-size-root": "18px", "line-height-base": "1.7", "headings-font-weight": "600" },
+    "css": { "measure": "42rem", "section-gap": "3.5rem", "radius": "6px", "nav-case": "none" }
+  },
+  {
+    "id": "svizzero",
+    "nome": "Svizzero",
+    "descrizione": "Bianco, nero e un rosso. Solo sans, titoli pesanti, angoli vivi.",
+    "light": { "paper": "#ffffff", "ink": "#111111", "ink-muted": "#5e5e5e", "accent": "#c8001a", "accent-soft": "#fde8ea", "rule": "#e6e6e6", "surface": "#f4f4f4", "code-color": "#a80016" },
+    "dark": { "paper": "#0d0d0d", "ink": "#f2f2f2", "ink-muted": "#9a9a9a", "accent": "#ff5a69", "accent-soft": "#2a1215", "rule": "#262626", "surface": "#171717", "code-color": "#ff8a94" },
+    "type": { "font-family-base": "$font-family-sans-serif", "headings-font-family": "$font-family-sans-serif", "font-size-root": "18px", "line-height-base": "1.55", "headings-font-weight": "700" },
+    "css": { "measure": "46rem", "section-gap": "4rem", "radius": "0px", "nav-case": "uppercase" }
+  },
+  {
+    "id": "quaderno",
+    "nome": "Quaderno",
+    "descrizione": "Crema e verde bosco, righe ariose. Per leggere a lungo.",
+    "light": { "paper": "#fdf8ee", "ink": "#2b2418", "ink-muted": "#736a5a", "accent": "#2f6b45", "accent-soft": "#e4efe6", "rule": "#ebe2cf", "surface": "#f5eedd", "code-color": "#5b4a1e" },
+    "dark": { "paper": "#1a1813", "ink": "#ece4d4", "ink-muted": "#a59c8a", "accent": "#7fc49a", "accent-soft": "#1d2a21", "rule": "#2f2b22", "surface": "#221f19", "code-color": "#d9bf7f" },
+    "type": { "font-family-base": "$font-family-serif", "headings-font-family": "$font-family-serif", "font-size-root": "20px", "line-height-base": "1.8", "headings-font-weight": "500" },
+    "css": { "measure": "40rem", "section-gap": "3rem", "radius": "8px", "nav-case": "none" }
+  },
+  {
+    "id": "terminale",
+    "nome": "Terminale",
+    "descrizione": "Titoli in monospazio e accento ambra. Da taccuino tecnico.",
+    "light": { "paper": "#fafafa", "ink": "#1a1a1a", "ink-muted": "#616161", "accent": "#8a5200", "accent-soft": "#f6ebd9", "rule": "#e3e3e3", "surface": "#f0f0f0", "code-color": "#7a4600" },
+    "dark": { "paper": "#0b0e0c", "ink": "#d7e3d9", "ink-muted": "#85948a", "accent": "#f2b33d", "accent-soft": "#2a2210", "rule": "#1f2622", "surface": "#121714", "code-color": "#9fe0a8" },
+    "type": { "font-family-base": "$font-family-sans-serif", "headings-font-family": "$font-family-monospace", "font-size-root": "17px", "line-height-base": "1.6", "headings-font-weight": "600" },
+    "css": { "measure": "48rem", "section-gap": "3.5rem", "radius": "2px", "nav-case": "none" }
+  },
+  {
+    "id": "accademico",
+    "nome": "Accademico",
+    "descrizione": "Bordeaux su carta chiara, colonna stretta. Da rivista di studi.",
+    "light": { "paper": "#fffdf8", "ink": "#222020", "ink-muted": "#6a6360", "accent": "#7b1e3a", "accent-soft": "#f3e4e8", "rule": "#e8e2d9", "surface": "#f6f2ea", "code-color": "#6b2433" },
+    "dark": { "paper": "#181416", "ink": "#ebe5e3", "ink-muted": "#a1999a", "accent": "#e58aa5", "accent-soft": "#2e1a21", "rule": "#2e282a", "surface": "#211c1e", "code-color": "#eea0b4" },
+    "type": { "font-family-base": "$font-family-serif", "headings-font-family": "$font-family-serif", "font-size-root": "18px", "line-height-base": "1.7", "headings-font-weight": "600" },
+    "css": { "measure": "40rem", "section-gap": "3rem", "radius": "0px", "nav-case": "none" }
+  }
+]

@@ -1,0 +1,56 @@
+---
+title: "The R² that means nothing"
+description: "Every machine learning textbook shuffles the rows. On a time series, that single line quietly invents a model that can see the future."
+date: 2026-08-18
+categories: [notes, forecasting]
+draft: true   # bozza scritta da Claude come esempio di forma — vedi _TODO.md §1
+---
+
+Standard machine learning textbooks assume your rows are independent and
+exchangeable. Müller and Guido say so explicitly: shuffle the dataset and you
+lose nothing. Whether one tumour is benign doesn't depend on the previous
+patient in the table.
+
+Time series are the exact opposite. The load at 14:15 is nearly identical to
+the load at 14:00, and knowing that is half the job. **The ordering is the
+signal.** Which means every time a textbook shuffles the rows, you have to do
+something else instead.
+
+## What goes wrong, concretely
+
+`train_test_split(X, y, random_state=42)` picks a random 75% of your rows for
+training. On an hourly demand series, the training set now contains 14:00 and
+16:00 while the test set contains 15:00.
+
+Predicting 15:00 from its two immediate neighbours is not forecasting. It's
+interpolation, and it's trivially easy. The model gets an R² of 0.99 and you
+get a number that describes a task nobody will ever ask you to perform.
+
+The failure is silent. Nothing crashes. The metric doesn't look suspicious —
+it looks *great*, which is precisely why it survives review.
+
+## The rule
+
+Test data lies strictly in the future of training data. Always, per series.
+
+```python
+from_end = df.groupby(id_col).cumcount(ascending=False)
+is_test = from_end < h
+train, test = df[~is_test], df[is_test]
+```
+
+Counting backwards from the end of each group takes the tail of *h* points per
+series regardless of how long each series is — which matters the moment you
+have more than one, and they don't all start on the same date.
+
+## The part that's still uncomfortable
+
+A single holdout tells you how the model performed in one particular fortnight.
+If that fortnight contained a mild winter, you've measured the weather, not the
+model.
+
+The honest version is rolling-origin backtesting: repeat the evaluation across
+many cutoffs and look at the distribution of errors, not one number. It costs
+more compute and it usually makes your results look worse.
+
+That's the point.

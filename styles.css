@@ -1,0 +1,232 @@
+/* ===========================================================================
+   styles.css — quello che i due temi SCSS non possono fare
+   I temi definiscono la palette; qui c'è la forma: la home, le liste, il
+   ritmo verticale dei post. Tutto passa dalle variabili --site-*, quindi
+   ogni regola qui sotto funziona identica in chiaro e in scuro.
+   =========================================================================== */
+
+/* --- Manopole ----------------------------------------------------------------
+   Le misure di impaginazione in un posto solo. L'editor (_editor/, pannello
+   "Layout del sito") legge e riscrive questi valori: cambiarli qui a mano o
+   da li' e' la stessa cosa. */
+:root {
+  --site-measure: 44rem;       /* larghezza della colonna di testo */
+  --site-section-gap: 3.5rem;  /* spazio sopra i titoletti di sezione in home */
+  --site-radius: 3px;          /* angoli di schede e blocchi di codice */
+  --site-nav-case: uppercase;  /* voci della navbar: uppercase | none */
+}
+
+/* --- Misura di lettura -----------------------------------------------------
+   65 caratteri è la riga in cui l'occhio non si perde tornando a capo.
+   Quarto di suo lascia molto più largo. */
+main.content { max-width: var(--site-measure); margin-inline: auto; }
+/* Senza TOC, Quarto lascia comunque vuota la colonna di destra e il testo
+   sembra incollato a sinistra. `margin-inline: auto` lo ricentra nello spazio
+   che ha davvero, con o senza TOC. */
+body.quarto-dark img, body.quarto-dark .figure { opacity: .92; }
+
+/* --- Navbar ---------------------------------------------------------------- */
+.navbar {
+  font-family: var(--site-sans);
+  font-size: .84rem;
+  letter-spacing: .04em;
+  text-transform: var(--site-nav-case);
+  border-bottom: 1px solid var(--site-rule);
+}
+.navbar-brand {
+  font-family: var(--site-sans);
+  font-weight: 600;
+  letter-spacing: -.01em;
+  text-transform: none;
+  font-size: 1rem;
+}
+.navbar .nav-link:hover { color: var(--site-accent) !important; }
+
+/* --- Home: il blocco d'apertura --------------------------------------------
+   È la prima cosa che vede un recruiter. Grande, corta, senza fronzoli. */
+.hero { margin: 3.5rem 0 4rem; }
+.hero h1 {
+  font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: -.025em;
+  margin-bottom: 1.2rem;
+}
+.hero .lede {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--site-ink);
+  max-width: 34rem;
+}
+.hero .lede strong { font-weight: 600; }
+.hero-meta {
+  font-family: var(--site-sans);
+  font-size: .82rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--site-muted);
+  margin-bottom: 1.4rem;
+}
+.hero-link {
+  display: inline-block;
+  padding: .55rem .85rem;
+  margin: .25rem .5rem .25rem 0;
+  border: 1px solid var(--site-accent);
+  border-radius: var(--site-radius);
+  background: var(--site-accent);
+  color: var(--site-paper);
+  font-family: var(--site-sans);
+  font-size: .85rem;
+  text-decoration: none;
+}
+.hero-link:hover { opacity: .88; }
+.hero-link-secondary {
+  background: transparent;
+  color: var(--site-accent);
+}
+
+/* --- Titoli di sezione in home --------------------------------------------- */
+.section-rule {
+  font-family: var(--site-sans);
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--site-muted);
+  border-top: 1px solid var(--site-rule);
+  padding-top: .8rem;
+  margin: var(--site-section-gap) 0 1.5rem;
+}
+
+/* --- Schede progetto -------------------------------------------------------- */
+.project-card {
+  border: 1px solid var(--site-rule);
+  border-radius: var(--site-radius);
+  padding: 1.4rem 1.5rem;
+  margin-bottom: 1.1rem;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.project-card:hover {
+  border-color: var(--site-accent);
+  transform: translateY(-1px);
+}
+.project-card h3 { margin: 0 0 .4rem; font-size: 1.25rem; letter-spacing: -.01em; }
+.project-card h3 a { text-decoration: none; }
+.project-card p { margin: 0 0 .8rem; color: var(--site-ink); }
+.project-card .stack {
+  font-family: var(--site-mono);
+  font-size: .75rem;
+  color: var(--site-muted);
+}
+
+/* --- Tag / stack ----------------------------------------------------------- */
+.tag {
+  display: inline-block;
+  font-family: var(--site-mono);
+  font-size: .72rem;
+  padding: .12rem .5rem;
+  margin: 0 .3rem .3rem 0;
+  border: 1px solid var(--site-rule);
+  border-radius: 2px;
+  color: var(--site-muted);
+}
+
+/* --- Listing dei post ------------------------------------------------------- */
+.quarto-listing-default .listing-item { border-bottom: 1px solid var(--site-rule); padding: 1.1rem 0; }
+.listing-title { font-size: 1.15rem; letter-spacing: -.01em; }
+.listing-title a { text-decoration: none; }
+.listing-title a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.listing-date, .listing-reading-time {
+  font-family: var(--site-mono);
+  font-size: .76rem;
+  color: var(--site-muted);
+}
+.listing-description { color: var(--site-muted); font-size: .95rem; }
+
+/* --- Corpo dei post --------------------------------------------------------- */
+#title-block-header .quarto-title h1 { letter-spacing: -.025em; line-height: 1.12; }
+.quarto-title-meta {
+  font-family: var(--site-sans);
+  font-size: .8rem;
+  color: var(--site-muted);
+}
+main.content h2 {
+  margin-top: 2.8rem;
+  padding-top: .6rem;
+  border-top: 1px solid var(--site-rule);
+  font-size: 1.5rem;
+  letter-spacing: -.015em;
+}
+main.content h3 { margin-top: 2rem; font-size: 1.2rem; }
+blockquote {
+  border-left: 2px solid var(--site-accent);
+  padding-left: 1.1rem;
+  margin-left: 0;
+  color: var(--site-muted);
+  font-style: italic;
+}
+
+/* --- Link: sottolineatura che non taglia le discendenti --------------------- */
+main.content a { text-underline-offset: 3px; text-decoration-thickness: .06em; }
+
+/* --- Codice ----------------------------------------------------------------- */
+pre, code { font-family: var(--site-mono); }
+div.sourceCode {
+  border: 1px solid var(--site-rule);
+  border-radius: var(--site-radius);
+  font-size: .84rem;
+}
+p code { font-size: .86em; padding: .1em .3em; border-radius: 2px; }
+
+/* --- Tabelle ---------------------------------------------------------------- */
+main.content table { font-family: var(--site-sans); font-size: .88rem; }
+main.content thead th {
+  border-bottom: 1.5px solid var(--site-ink);
+  font-weight: 600;
+  text-align: left;
+}
+
+/* --- Lista letture ---------------------------------------------------------- */
+.reading-list { list-style: none; padding-left: 0; }
+.reading-list li {
+  border-bottom: 1px solid var(--site-rule);
+  padding: .85rem 0;
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+.reading-list .status {
+  font-family: var(--site-mono);
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--site-muted);
+  min-width: 5.5rem;
+  flex-shrink: 0;
+}
+.reading-list .status.now { color: var(--site-accent); }
+.reading-list .book-author { color: var(--site-muted); font-size: .92rem; }
+
+/* --- Footer ----------------------------------------------------------------- */
+.nav-footer {
+  border-top: 1px solid var(--site-rule);
+  font-family: var(--site-sans);
+  font-size: .78rem;
+  margin-top: 4rem;
+}
+
+/* --- Mobile ----------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .hero { margin: 2rem 0 2.5rem; }
+  .reading-list li { flex-direction: column; gap: .15rem; }
+  .reading-list .status { min-width: 0; }
+}
+
+/* --- Link "vedi tutto" ------------------------------------------------------ */
+.more-link {
+  display: inline-block;
+  margin-top: 1.2rem;
+  font-family: var(--site-sans);
+  font-size: .85rem;
+  letter-spacing: .01em;
+  text-decoration: none;
+}
+.more-link:hover { text-decoration: underline; text-underline-offset: 3px; }

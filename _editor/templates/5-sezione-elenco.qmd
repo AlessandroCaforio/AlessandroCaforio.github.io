@@ -1,0 +1,18 @@
+% nome: Nuova sezione con elenco
+% descrizione: Una pagina che elenca da sola i file di una cartella, come Writing o Notebooks.
+% percorso: {{slug}}.qmd
+% poi: Metti le pagine della sezione in {{slug}}/nome/index.qmd e aggiungi {{slug}}.qmd al menu da Layout del sito.
+---
+title: "{{title}}"
+description: "{{description}}"
+listing:
+  contents: ["{{slug}}/**/*.qmd", "{{slug}}/**/*.md"]
+  type: default
+  sort: "date desc"
+  categories: true
+  fields: [date, title, description, categories]
+  date-format: "D MMM YYYY"
+toc: false
+---
+
+Una o due righe che spiegano cosa trova qui chi legge.

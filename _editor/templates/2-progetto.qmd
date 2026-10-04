@@ -1,0 +1,31 @@
+% nome: Progetto
+% descrizione: Pagina progetto con la struttura di Energy demand: domanda, dati, metodo, risultati, errori.
+% percorso: projects/{{slug}}/index.qmd
+% poi: Aggiungi la scheda in projects.qmd (comando \projectcard) che punti a projects/{{slug}}/index.qmd.
+---
+title: "{{title}}"
+subtitle: ""
+description: "{{description}}"
+date: {{date}}
+categories: []
+toc: true
+draft: true
+---
+
+::: {.stack}
+Python
+:::
+
+## The question
+
+## The data
+
+## What I did
+
+## Results
+
+| Model | Metric | Baseline |
+|---|---:|---:|
+|  |  |  |
+
+## What I got wrong

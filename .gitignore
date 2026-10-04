@@ -1,0 +1,41 @@
+# Output di Quarto — si rigenera, non si versiona
+/_site/
+/.quarto/
+# Anteprima dell'editor (_editor/server.py), bozze comprese
+/_editor/.preview/
+
+# Toolchain locale
+.venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Segreti: qui non deve entrarci niente, ma la rete di sicurezza costa una riga
+.env
+*.key
+
+# NOTA: /_freeze/ NON va ignorato. Contiene i risultati dei notebook già
+# eseguiti; è quello che permette alla CI di costruire il sito senza avere
+# i tuoi dati Terna né le tue credenziali API.
+
+# Toolchain Quarto scaricata in locale (247 MB) — si riscarica, non si versiona
+.tools/
+
+**/*.quarto_ipynb
+
+# Note di lavoro, non materiale pubblico. GitHub Pages su account free vuole
+# una repo pubblica: _TODO.md dice quale post non e' tuo e cosa richiede l'ok
+# del PI. Restano sul disco, fuori dalla storia di git. Togli questa riga se
+# decidi che possono stare in pubblico.
+_TODO.md
+_GUIDE_LOCAL.md
+
+# Vault Obsidian dentro posts/: si versionano solo le tre impostazioni che
+# fanno funzionare la scrittura (link markdown standard, cartella immagini,
+# cartella template). Il resto (layout finestre, grafo) cambia a ogni click.
+posts/.obsidian/*
+!posts/.obsidian/app.json
+!posts/.obsidian/templates.json
+!posts/.obsidian/core-plugins.json

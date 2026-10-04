@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor del sito</title>
+<link rel="icon" href="/site/assets/favicon.svg">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="top-left">
+    <button class="icon-btn" id="btnSidebar" title="Mostra o nascondi l'elenco dei file (⌘\)">▤</button>
+    <div class="brand">
+      <span class="brand-mark">\</span>
+      <span class="brand-title" id="siteTitle">Sito</span>
+    </div>
+    <span class="top-sep"></span>
+    <button class="btn btn-quiet" id="btnNew" title="Nuovo post, progetto o pagina">+ Nuovo</button>
+    <button class="btn btn-quiet" id="btnLayout" title="Temi, colori, caratteri, menu"><span class="sw"><i></i><i></i><i></i></span><span class="lbl">Layout e temi</span></button>
+  </div>
+  <button class="search" id="btnSearch" title="Cerca file, comandi e azioni (⌘K)"><span class="search-ico">⌕</span><span class="search-text">Cerca file, comandi, azioni…</span><kbd>⌘K</kbd></button>
+  <div class="top-right">
+    <div class="seg" id="modeSeg" title="Come dividere lo schermo">
+      <button data-mode="write" title="Solo il testo">Scrivi</button>
+      <button data-mode="split" title="Testo e anteprima affiancati">Diviso</button>
+      <button data-mode="preview" title="Solo l'anteprima">Anteprima</button>
+    </div>
+    <label class="switch" title="Ricompila da solo un secondo e mezzo dopo che smetti di scrivere">
+      <input type="checkbox" id="autoToggle"><span class="track"></span>Auto
+    </label>
+    <button class="btn btn-compile" id="btnCompile" title="Salva e compila (⌘S)">
+      <span class="spin" aria-hidden="true"></span><span class="compile-label">Compila</span><kbd>⌘S</kbd>
+    </button>
+    <button class="btn" id="btnPublish" title="Commit e push su GitHub">Pubblica</button>
+    <button class="icon-btn" id="btnHelp" title="Come si usa e scorciatoie (?)">?</button>
+  </div>
+</header>
+
+<div class="workspace" id="workspace">
+  <aside class="sidebar">
+    <div class="side-search"><input id="treeFilter" type="search" placeholder="Filtra i file…" spellcheck="false" autocomplete="off"></div>
+    <div class="tree" id="tree"></div>
+    <div class="side-head">Struttura</div>
+    <div class="outline" id="outline"></div>
+  </aside>
+
+  <section class="pane pane-editor" id="paneEditor">
+    <div class="pane-bar">
+      <span class="crumbs" id="filePath">—</span>
+      <span class="spacer"></span>
+      <span class="save-state" id="saveState"></span>
+    </div>
+    <div class="toolbar" id="toolbar" hidden></div>
+
+    <div class="code-scroll" id="codeScroll" hidden>
+      <div class="code-inner">
+        <pre class="code-hl" id="hl" aria-hidden="true"></pre>
+        <textarea id="ta" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Sorgente"></textarea>
+      </div>
+    </div>
+    <div class="layout-view" id="layoutView" hidden></div>
+    <div class="empty-view" id="emptyView" hidden></div>
+
+    <footer class="status-bar">
+      <span id="cursorPos"></span>
+      <span id="wordCount"></span>
+      <span class="spacer"></span>
+      <span class="muted" id="statusHint">Scrivi <b class="mono">\</b> per i comandi · trascina qui le immagini</span>
+    </footer>
+  </section>
+
+  <div class="splitter" id="splitter" title="Trascina per ridimensionare"></div>
+
+  <section class="pane pane-preview" id="panePreview">
+    <div class="pane-bar">
+      <span class="crumbs" id="previewPath">—</span>
+      <button class="chip" id="editThisPage" hidden>✎ Modifica questa pagina</button>
+      <span class="spacer"></span>
+      <div class="seg" id="deviceSeg">
+        <button data-dev="desktop" title="Computer">Desktop</button>
+        <button data-dev="tablet" title="Tablet, 820 px">Tablet</button>
+        <button data-dev="phone" title="Telefono, 390 px">Telefono</button>
+      </div>
+      <button class="zoom" id="zoomBtn">100%</button>
+      <button class="icon-btn" id="themeToggle" title="Anteprima chiara / scura">◐</button>
+      <button class="icon-btn" id="reloadPreview" title="Ricarica l'anteprima">↻</button>
+      <a class="icon-btn" id="openExternal" target="_blank" rel="noopener" title="Apri in una scheda del browser">↗</a>
+    </div>
+    <button class="pv-status" id="pvStatus" hidden></button>
+    <div class="preview-stage" id="stage">
+      <div class="progress" id="progress" hidden></div>
+      <div class="frame-box" id="frameBox"><iframe id="previewA" class="pf on" title="Anteprima del sito"></iframe><iframe id="previewB" class="pf" title="Anteprima del sito"></iframe></div>
+      <div class="first-build" id="firstBuild" hidden>Prima compilazione del sito…</div>
+    </div>
+    <div class="log" id="log">
+      <button class="log-head" id="logToggle">
+        <span id="logSummary" class="muted">Log di compilazione</span>
+        <span class="spacer"></span>
+        <span class="log-hint">doppio click sulla pagina → vai al sorgente</span>
+        <span class="caret" id="logCaret">▴</span>
+      </button>
+      <div class="log-body" id="logBody" hidden></div>
+    </div>
+  </section>
+</div>
+
+<div class="popup" id="cmdPopup" hidden></div>
+<div class="menu" id="blocksMenu" hidden></div>
+<div class="toast" id="toast" hidden></div>
+<input type="file" id="imgInput" accept="image/*" multiple hidden>
+
+<dialog class="dlg" id="dlgNew">
+  <form id="formNew">
+    <h2>Nuovo file</h2>
+    <div class="tpl-grid" id="tplGrid"></div>
+    <label class="field"><span class="field-label">Titolo</span><input id="newTitle" required autocomplete="off"></label>
+    <label class="field"><span class="field-label">Descrizione, una riga</span><input id="newDesc" autocomplete="off"></label>
+    <p class="path-preview">Verrà creato <code id="newPath"></code></p>
+    <p class="hint" id="newAfter"></p>
+    <div class="dlg-actions">
+      <button type="button" class="btn" id="newCancel">Annulla</button>
+      <button type="submit" class="btn btn-compile">Crea e apri</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="dlg dlg-wide" id="dlgPublish">
+  <h2>Pubblica</h2>
+  <p class="muted" id="pubInfo"></p>
+  <p class="warn-box">Prima di spuntare: niente dati LG né numeri di lavoro, niente <code>.env</code>, bozze altrui solo se ok (README §7). I file nuovi partono non spuntati.</p>
+  <div class="pub-list" id="pubList"></div>
+  <label class="field"><span class="field-label">Messaggio di commit</span><input id="pubMsg" autocomplete="off" placeholder="Blog: nuovo post sul naive stagionale"></label>
+  <pre class="pub-log" id="pubLog" hidden></pre>
+  <div class="dlg-actions">
+    <button type="button" class="btn" id="pubClose">Chiudi</button>
+    <span class="spacer"></span>
+    <button type="button" class="btn" id="pubCommit">Solo commit</button>
+    <button type="button" class="btn btn-compile" id="pubPush">Commit e push</button>
+  </div>
+</dialog>
+
+<dialog class="dlg dlg-palette" id="dlgPalette">
+  <input id="palInput" autocomplete="off" spellcheck="false" placeholder="Cerca un file, un comando \ o un'azione…">
+  <div class="pal-list" id="palList"></div>
+  <div class="pal-foot"><span>↑↓ scegli</span><span>↵ apri</span><span><b class="mono">\</b> solo comandi</span><span>esc chiudi</span></div>
+</dialog>
+
+<dialog class="dlg dlg-wide" id="dlgHelp">
+  <h2>Come si usa</h2>
+  <ol class="steps">
+    <li><strong>Scrivi a sinistra.</strong> Sono i file veri del sito, gli stessi che apri con Obsidian, divisi in Pagine, Post e Progetti.</li>
+    <li><strong><kbd class="k">⌘S</kbd> compila.</strong> In tre secondi a destra c'è il sito, bozze comprese. Doppio click su un paragrafo dell'anteprima e salti a quella riga del sorgente.</li>
+    <li><strong>L'aspetto si cambia da Layout e temi.</strong> Scegli un tema, ritocca colori, caratteri e menu, poi Applica.</li>
+    <li><strong>Online va solo quello che pubblichi.</strong> Pubblica fa commit e push dei soli file che spunti.</li>
+  </ol>
+  <div class="help-cols">
+    <div>
+      <h3>Scorciatoie</h3>
+      <table class="keys">
+        <tr><td><kbd class="k">⌘S</kbd></td><td>Salva e compila</td></tr>
+        <tr><td><kbd class="k">⌘K</kbd></td><td>Cerca file, comandi e azioni</td></tr>
+        <tr><td><kbd class="k">⌘J</kbd></td><td>Porta l'anteprima al punto dove stai scrivendo</td></tr>
+        <tr><td><kbd class="k">⌘B</kbd> <kbd class="k">⌘I</kbd></td><td>Grassetto, corsivo</td></tr>
+        <tr><td><kbd class="k">Tab</kbd> <kbd class="k">⇧Tab</kbd></td><td>Indenta, togli indentazione</td></tr>
+        <tr><td><kbd class="k">⌘\</kbd></td><td>Mostra o nascondi i file</td></tr>
+        <tr><td>Immagini</td><td>Trascinale o incollale nel testo: finiscono in <code>images/</code> accanto al file</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Comandi come in LaTeX</h3>
+      <table class="keys" id="helpCommands"></table>
+      <p class="hint">Scrivi <code>\</code> e l'inizio del nome, poi Invio. Sono tutti in <code>_editor/comandi.tex</code>: aggiungi i tuoi.</p>
+    </div>
+  </div>
+  <div class="dlg-actions"><button type="button" class="btn btn-compile" id="helpClose">Ho capito</button></div>
+</dialog>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

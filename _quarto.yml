@@ -1,0 +1,83 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - projects/energy-demand/benchmark.py
+  preview:
+    port: 4200
+    browser: true
+
+website:
+  title: "Alessandro Caforio"
+  draft-mode: gone
+  # Se un giorno compri un dominio, questa e' l'unica riga da cambiare
+  # (piu' un file CNAME accanto a _quarto.yml). Serve a Quarto per generare
+  # URL assoluti in sitemap.xml e nel feed RSS.
+  site-url: "https://alessandrocaforio.github.io"
+  description: "Forecasting, time series, and the data underneath them."
+  favicon: assets/favicon.svg
+  open-graph: true
+  search:
+    location: navbar
+    type: overlay
+
+  navbar:
+    pinned: false
+    left:
+      - href: projects.qmd
+        text: Projects
+      - href: about.qmd
+        text: About
+    right:
+      - icon: github
+        href: https://github.com/AlessandroCaforio
+        aria-label: GitHub
+      # LinkedIn: rimesso quando mi dai l'handle. Un link a un profilo che non
+      # esiste, sulla tua stessa vetrina, e' peggio che non avere il link.
+      # - icon: linkedin
+      #   href: https://www.linkedin.com/in/IL-TUO-HANDLE
+      #   aria-label: LinkedIn
+
+  page-footer:
+    border: false
+    left: "© 2026 Alessandro Caforio"
+    right:
+      - text: "Built with Quarto"
+        href: https://quarto.org
+      - text: "Source"
+        # Per pubblicare su alessandrocaforio.github.io (senza sottocartella) la repo
+        # deve chiamarsi esattamente AlessandroCaforio.github.io: e' la convenzione
+        # dei "user site" di GitHub Pages. Con un altro nome il sito finirebbe su
+        # alessandrocaforio.github.io/<nome-repo>/ e site-url andrebbe cambiato.
+        href: https://github.com/AlessandroCaforio/AlessandroCaforio.github.io
+
+format:
+  html:
+    # Link "Source" ai notebook incorporati: spenti. Accesi, Quarto genera per
+    # ogni notebook una pagina di anteprima che perde il tema "carta" (risolve
+    # i percorsi del tema dalla cartella sbagliata) e una copia .ipynb
+    # scaricabile dal sito. Collaudato su una copia del sito il 2026-09-13.
+    notebook-links: false
+    theme:
+      light: theme-light.scss
+      dark: theme-dark.scss
+    css: styles.css
+    include-in-header: assets/color-scheme.html
+    toc: true
+    toc-depth: 3
+    toc-title: "On this page"
+    code-copy: true
+    code-overflow: wrap
+    code-line-numbers: false
+    highlight-style: github
+    anchor-sections: true
+    fig-align: center
+    fig-responsive: true
+    link-external-newwindow: true
+    link-external-icon: false
+
+execute:
+  freeze: auto    # i notebook si rieseguono solo se cambia il sorgente:
+                  # la CI non ha i tuoi dati Terna, e non deve averli.
+  warning: false
+  echo: true

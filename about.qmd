@@ -1,0 +1,40 @@
+---
+title: "About"
+description: "Who I am, what I work on, and how to reach me."
+toc: false
+---
+
+I'm a data analyst in Milan. Day to day I work on **sales forecasting for home
+appliances** at LG Italy: demand planning, sell-out data, and the gap between
+what a model predicts and what a commercial team is willing to act on.
+
+Before that I worked as a **research assistant on economic history**, building
+datasets from primary sources: OCR of printed census tables, a crosswalk
+reconciling Italian municipalities across the 1921 and 1951 censuses, and the
+validation passes that turn scanned paper into something you can actually run
+a regression on.
+
+That job taught me the thing I keep coming back to: **most of the work is
+upstream of the model.** By the time you're choosing between gradient boosting
+and an ARIMA, the important decisions — what counts as an observation, what to
+do with the gaps, which units are comparable across time — have already been
+made, usually implicitly.
+
+## How I work
+
+I implement methods by hand before using the library version. Not out of
+principle: a hand-rolled `SeasonalNaive` takes an afternoon and teaches you
+exactly which assumptions the library is making on your behalf. It's the
+cheapest insurance against an R² of 0.99 that means nothing.
+
+I also write down where things failed. A portfolio of only successes tells a
+reader nothing about judgment.
+
+## Elsewhere
+
+- **GitHub** — [github.com/AlessandroCaforio](https://github.com/AlessandroCaforio)
+- **Email** — [alex.caforio@gmail.com](mailto:alex.caforio@gmail.com)
+
+Away from the screen I play guitar, which is the other discipline where the
+only way through is slow, deliberate repetition of the part you keep getting
+wrong.

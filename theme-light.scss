@@ -1,0 +1,57 @@
+/*-- scss:defaults --*/
+// =============================================================================
+//  Light — "carta"
+//  Sfondo avorio, inchiostro caldo, accento terracotta.
+//  Nessun font remoto: solo stack di sistema. Il sito carica prima che il
+//  browser finisca di pensarci, e nessuna richiesta esce verso terzi.
+// =============================================================================
+
+$paper:        #fbfaf7;
+$ink:          #1c1b19;
+$ink-muted:    #6b6862;
+$accent:       #a63d1f;
+$accent-soft:  #f0e3dd;
+$rule:         #e5e1d8;
+$surface:      #f3f0e9;
+
+$body-bg:      $paper;
+$body-color:   $ink;
+$link-color:   $accent;
+$border-color: $rule;
+
+$font-family-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Charter, Georgia, "Times New Roman", serif;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+$font-family-monospace: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+$font-family-base: $font-family-serif;
+$headings-font-family: $font-family-serif;
+$font-size-root: 19px;
+$line-height-base: 1.65;
+$headings-font-weight: 600;
+
+$code-bg: $surface;
+$code-color: #7a3a12;
+$pre-bg: $surface;
+$table-border-color: $rule;
+
+$navbar-bg: $paper;
+$navbar-fg: $ink;
+$navbar-hl: $accent;
+$footer-bg: $paper;
+$footer-fg: $ink-muted;
+
+$toc-color: $ink-muted;
+$toc-active-border: $accent;
+
+/*-- scss:rules --*/
+:root {
+  --site-paper: #{$paper};
+  --site-ink: #{$ink};
+  --site-muted: #{$ink-muted};
+  --site-accent: #{$accent};
+  --site-accent-soft: #{$accent-soft};
+  --site-rule: #{$rule};
+  --site-surface: #{$surface};
+  --site-sans: #{$font-family-sans-serif};
+  --site-mono: #{$font-family-monospace};
+}

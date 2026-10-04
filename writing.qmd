@@ -1,0 +1,24 @@
+---
+title: "Writing"
+draft: true
+description: "Notes on forecasting, time series, and the books I'm working through."
+listing:
+  contents: ["posts/**/*.qmd", "posts/**/*.md"]
+  type: default
+  sort: "date desc"
+  categories: true
+  feed:
+    title: "Alessandro Caforio — Writing"
+    items: 20
+  fields: [date, title, description, categories, reading-time]
+  date-format: "D MMM YYYY"
+toc: false
+---
+
+Two kinds of posts live here, and the categories tell them apart.
+
+**Notes** are what I learned implementing something — usually the part that
+surprised me, not the tutorial. **Reading** is me arguing with a book: what it
+claims, whether it held up when I tried it on real data.
+
+Drafts stay unpublished until they're worth someone's time.

@@ -1,0 +1,41 @@
+% nome: Pagina vetrina
+% descrizione: Apertura grande più sezioni con schede, come la home.
+% percorso: {{slug}}.qmd
+% poi: Per metterla nel menu: Layout del sito → Navigazione → Aggiungi voce ({{slug}}.qmd).
+---
+pagetitle: "{{title}}"
+description: "{{description}}"
+toc: false
+---
+
+::: {.hero}
+
+::: {.hero-meta}
+Sottotitolo breve
+:::
+
+# {{title}} {.no-anchor}
+
+::: {.lede}
+{{description}}
+:::
+
+:::
+
+::: {.section-rule}
+Prima sezione
+:::
+
+::: {.project-card}
+### [Titolo della scheda](projects/slug/index.qmd)
+
+Una frase su cosa c'è dietro il link.
+
+::: {.stack}
+Python · pandas
+:::
+:::
+
+::: {.section-rule}
+Seconda sezione
+:::

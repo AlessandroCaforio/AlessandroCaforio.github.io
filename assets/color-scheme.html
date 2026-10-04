@@ -1,0 +1,38 @@
+<script>
+// Quarto parte sempre dal tema chiaro e ignora prefers-color-scheme: chi ha il
+// sistema in scuro si prende una pagina bianca in faccia. Qui seguiamo il
+// sistema finché il visitatore non sceglie da sé.
+//
+// Meccanica: Quarto legge localStorage["quarto-color-scheme"], dove "alternate"
+// significa il secondo tema dichiarato in _quarto.yml (il nostro dark) e
+// "default" il primo. La chiave SCHEME_AUTO ricorda che il valore l'abbiamo
+// messo noi: al primo click sul toggle la cancelliamo, e da quel momento
+// comanda la scelta esplicita dell'utente.
+(function () {
+  var KEY = "quarto-color-scheme";
+  var AUTO = "site-scheme-auto";
+
+  try {
+    var saved = window.localStorage.getItem(KEY);
+    var isAuto = window.localStorage.getItem(AUTO) === "1";
+    if (saved === null || isAuto) {
+      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      window.localStorage.setItem(KEY, prefersDark ? "alternate" : "default");
+      window.localStorage.setItem(AUTO, "1");
+    }
+  } catch (e) {
+    // localStorage bloccato (Safari in navigazione privata, cookie di terze
+    // parti disattivati): nessun tema salvato, si resta sul chiaro. Non è un
+    // errore da propagare.
+  }
+
+  window.document.addEventListener("DOMContentLoaded", function () {
+    var toggles = window.document.querySelectorAll(".quarto-color-scheme-toggle");
+    for (var i = 0; i < toggles.length; i++) {
+      toggles[i].addEventListener("click", function () {
+        try { window.localStorage.removeItem(AUTO); } catch (e) {}
+      });
+    }
+  });
+})();
+</script>

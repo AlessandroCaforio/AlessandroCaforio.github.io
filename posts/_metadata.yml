@@ -1,0 +1,7 @@
+# Default applicati a ogni post. Cambiare qui invece che in venti frontmatter.
+author: "Alessandro Caforio"
+toc: true
+toc-depth: 2
+date-format: "D MMMM YYYY"
+title-block-banner: false
+comments: false   # attivabile con giscus quando il sito è online, vedi README

@@ -1,0 +1,56 @@
+/*-- scss:defaults --*/
+// =============================================================================
+//  Dark — "grafite"
+//  Stesse proporzioni del tema chiaro, ruoli invertiti. L'accento vira
+//  sull'ambra: la terracotta su fondo scuro perde contrasto e diventa fango.
+// =============================================================================
+
+$paper:        #15161b;
+$ink:          #e6e4df;
+$ink-muted:    #98948c;
+$accent:       #e08a5a;
+$accent-soft:  #2c2119;
+$rule:         #2a2c34;
+$surface:      #1c1e25;
+
+$body-bg:      $paper;
+$body-color:   $ink;
+$link-color:   $accent;
+$border-color: $rule;
+
+$font-family-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Charter, Georgia, "Times New Roman", serif;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+$font-family-monospace: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+$font-family-base: $font-family-serif;
+$headings-font-family: $font-family-serif;
+$font-size-root: 19px;
+$line-height-base: 1.65;
+$headings-font-weight: 600;
+
+$code-bg: $surface;
+$code-color: #f0a878;
+$pre-bg: $surface;
+$table-border-color: $rule;
+
+$navbar-bg: $paper;
+$navbar-fg: $ink;
+$navbar-hl: $accent;
+$footer-bg: $paper;
+$footer-fg: $ink-muted;
+
+$toc-color: $ink-muted;
+$toc-active-border: $accent;
+
+/*-- scss:rules --*/
+:root {
+  --site-paper: #{$paper};
+  --site-ink: #{$ink};
+  --site-muted: #{$ink-muted};
+  --site-accent: #{$accent};
+  --site-accent-soft: #{$accent-soft};
+  --site-rule: #{$rule};
+  --site-surface: #{$surface};
+  --site-sans: #{$font-family-sans-serif};
+  --site-mono: #{$font-family-monospace};
+}

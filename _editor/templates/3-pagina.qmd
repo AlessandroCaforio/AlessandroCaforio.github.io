@@ -1,0 +1,9 @@
+% nome: Pagina semplice
+% descrizione: Una pagina di testo nella radice del sito, come About.
+% percorso: {{slug}}.qmd
+% poi: Per metterla nel menu: Layout del sito → Navigazione → Aggiungi voce ({{slug}}.qmd).
+---
+title: "{{title}}"
+description: "{{description}}"
+toc: false
+---

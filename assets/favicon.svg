@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Una sparkline: il mestiere in 32 pixel. Il colore segue il tema del
+       browser, terracotta su chiaro e ambra su scuro. -->
+  <style>
+    .line { fill: none; stroke: #a63d1f; stroke-width: 2.4;
+            stroke-linecap: round; stroke-linejoin: round; }
+    @media (prefers-color-scheme: dark) { .line { stroke: #e08a5a; } }
+  </style>
+  <polyline class="line" points="3,22 8,17 12,24 17,11 22,15 29,5"/>
+</svg>

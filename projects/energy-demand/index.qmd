@@ -1,0 +1,73 @@
+---
+title: "Italian electricity demand"
+subtitle: "A reproducible benchmark before the model"
+description: "A public-data forecasting project with a measured Terna comparison, a documented pipeline, and explicit next steps."
+date: 2026-08-18
+categories: [forecasting, time series, data engineering]
+toc: true
+---
+
+::: {.stack}
+Python · pandas · pytest · Terna public API
+:::
+
+## The question
+
+How hard is it to forecast Italian electricity demand, and what should a model
+beat before it is worth using? I started with Terna's national load series and
+its own published forecast. The first result is a benchmark, not a claim that
+my model beats the grid operator.
+
+## The first measured result
+
+I compared forecasts against **2,688 national load observations** at 15 minute
+intervals from **1–28 February 2026**. All three methods are evaluated on the
+same timestamps.
+
+| Forecast | MAE (MW) | RMSE (MW) | MAPE |
+|---|---:|---:|---:|
+| Terna's published forecast | **531** | **721** | **1.39%** |
+| Same time one week earlier | 946 | 1,266 | 2.45% |
+| Same time one day earlier | 3,319 | 5,257 | 8.89% |
+
+Terna's forecast is substantially better than either naive baseline in this
+month. The gap between the daily and weekly baselines also shows why calendar
+structure matters: an ordinary weekday is often more like the same weekday last
+week than like yesterday.
+
+The comparison uses the `total_load_MW` and `forecast_total_load_MW` fields from
+Terna's [Total Load API](https://developer.terna.it/docs/read/apis_catalog/load/Total_Load).
+That API describes the forecast as produced the day before the reference day.
+The naive forecasts use only earlier observed load. I joined each observation
+to the timestamp exactly one or seven days earlier; shifting by row number
+would give wrong matches wherever the extract has a gap. February has complete
+15 minute coverage in this local extract.
+
+[Read the benchmark script](benchmark.py){.more-link}
+
+## The data pipeline
+
+The broader project downloads public Terna data into a local Parquet layer. Its
+catalog script supports incremental updates, handles intermittent API errors
+with retries, and records which endpoint and parameter combinations return
+data. The load series spans 2021–2026 and includes national and regional data.
+
+Each record carries a local timestamp and UTC offset. I combine them before
+sorting or aggregating, so the repeated hour when clocks change remains
+unambiguous. The February benchmark uses UTC timestamps and stays away from a
+clock change.
+
+## What is built, and what comes next
+
+The `handcast` package contains mean and seasonal naive forecasters, error
+metrics, and a chronological train/test split, with focused tests. Its
+rolling-origin split and recursive forecasting methods are still
+unimplemented. I am not presenting a fitted model score until those methods
+support a proper out-of-sample comparison.
+
+This table covers one month and national load only. It does not establish
+performance across seasons or regions. The next useful result is a rolling
+backtest across several origins, with Terna and the weekly naive forecast in
+every comparison. Any model that uses observed weather must also be labeled
+accordingly: Terna's day-ahead forecast did not have access to the next day's
+observed temperature.

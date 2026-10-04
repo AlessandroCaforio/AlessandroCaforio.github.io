@@ -1,0 +1,25 @@
+---
+title: "Reading"
+draft: true
+description: "What I'm working through, what I finished, and what I gave up on."
+toc: false
+---
+
+A list of books is a weak signal — anyone can buy a book. So this page tracks
+what I actually did with each one: the ones I worked through with code open
+next to them are marked, and several link to notes where I argue with the
+author.
+
+The abandoned ones stay on the list. Quitting a book that isn't earning its
+time is a decision, not a failure.
+
+## Forecasting & statistics
+
+<ul class="reading-list">
+<li><span class="status now">Reading</span><span><em>Forecasting: Principles and Practice</em> (3rd ed.) <span class="book-author">— Rob J. Hyndman &amp; George Athanasopoulos</span></span></li>
+<li><span class="status now">Reading</span><span><em>Introduction to Machine Learning with Python</em> <span class="book-author">— Andreas Müller &amp; Sarah Guido</span></span></li>
+</ul>
+
+## Economics & history
+
+## Outside the field
