@@ -19,6 +19,7 @@
     <span class="top-sep"></span>
     <button class="btn btn-quiet" id="btnNew" title="Nuovo post, progetto o pagina">+ Nuovo</button>
     <button class="btn btn-quiet" id="btnLayout" title="Temi, colori, caratteri, menu"><span class="sw"><i></i><i></i><i></i></span><span class="lbl">Layout e temi</span></button>
+    <button class="btn btn-quiet" id="btnChat" title="Parla con Codex di testi e pagine">✦ Chat AI</button>
   </div>
   <button class="search" id="btnSearch" title="Cerca file, comandi e azioni (⌘K)"><span class="search-ico">⌕</span><span class="search-text">Cerca file, comandi, azioni…</span><kbd>⌘K</kbd></button>
   <div class="top-right">
@@ -106,6 +107,24 @@
   </section>
 </div>
 
+<aside class="chat-panel" id="chatPanel" aria-label="Chat AI" hidden>
+  <div class="chat-head">
+    <div><strong>Chat AI</strong><span class="muted"> · Codex</span></div>
+    <span class="spacer"></span>
+    <button class="icon-btn" id="chatNew" title="Nuova conversazione" aria-label="Nuova conversazione">↺</button>
+    <button class="icon-btn" id="chatClose" title="Chiudi chat" aria-label="Chiudi chat">×</button>
+  </div>
+  <p class="chat-intro">Parliamo di cosa scrivere e dove metterlo. Se propongo una modifica, la vedrai prima di applicarla.</p>
+  <div class="chat-messages" id="chatMessages" role="log" aria-live="polite"></div>
+  <form class="chat-form" id="chatForm">
+    <label class="chat-context"><input type="checkbox" id="chatIncludeFile" checked> Includi la pagina aperta <span id="chatFileName"></span></label>
+    <p class="chat-privacy">Il messaggio e, se selezionata, la pagina aperta vengono inviati a Codex. Non includere dati aziendali riservati.</p>
+    <label class="sr-only" for="chatInput">Messaggio per Codex</label>
+    <textarea id="chatInput" rows="3" maxlength="4000" placeholder="Es. Cosa dovrei raccontare nella pagina Data Sciences?"></textarea>
+    <div class="chat-actions"><span class="muted" id="chatState"></span><button class="btn btn-compile" id="chatSend" type="submit">Invia</button></div>
+  </form>
+</aside>
+
 <div class="popup" id="cmdPopup" hidden></div>
 <div class="menu" id="blocksMenu" hidden></div>
 <div class="toast" id="toast" hidden></div>
@@ -154,6 +173,7 @@
     <li><strong><kbd class="k">⌘S</kbd> compila.</strong> In tre secondi a destra c'è il sito, bozze comprese. Doppio click su un paragrafo dell'anteprima e salti a quella riga del sorgente.</li>
     <li><strong>L'aspetto si cambia da Layout e temi.</strong> Scegli un tema, ritocca colori, caratteri e menu, poi Applica.</li>
     <li><strong>Online va solo quello che pubblichi.</strong> Pubblica fa commit e push dei soli file che spunti.</li>
+    <li><strong>Chat AI ti aiuta a scrivere.</strong> Condividi la pagina aperta se vuoi un consiglio contestuale. Le modifiche proposte si applicano solo dopo il tuo click; poi salvi e pubblichi come sempre.</li>
   </ol>
   <div class="help-cols">
     <div>

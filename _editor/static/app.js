@@ -772,6 +772,7 @@ function showView(v) {
   $('#blocksMenu').hidden = true;
   hidePopup();
   renderToolbar();
+  updateChatContext();
 }
 
 function isDirty() {
@@ -852,6 +853,7 @@ async function openFile(path, { line } = {}) {
   const page = pageFor(path);
   if (page && page !== state.previewPage) loadPreview(page);
   else updateEditChip();
+  updateChatContext();
 }
 
 async function save({ silent = false, force = false } = {}) {
@@ -1935,6 +1937,121 @@ function toggleSidebar() {
   store.set('sidebar', !hidden);
 }
 
+// --------------------------------------------------------------- chat AI
+
+let chatHistory = [];
+let chatBusy = false;
+
+function updateChatContext() {
+  const path = state.current?.path || '';
+  const available = state.view === 'code' && !!state.current?.editable && /\.(qmd|md)$/.test(path)
+    && !path.split('/').some(part => part.startsWith('_') || part.startsWith('.'));
+  $('#chatIncludeFile').disabled = !available;
+  $('#chatFileName').textContent = available ? `(${path})` : '(apri una pagina per includerla)';
+}
+
+function chatMessage(role, content) {
+  const box = h('div', { class: 'chat-message ' + role }, [
+    h('span', { class: 'speaker', text: role === 'user' ? 'Tu' : role === 'error' ? 'Errore' : 'Codex' }),
+    h('p', { text: content }),
+  ]);
+  $('#chatMessages').append(box);
+  $('#chatMessages').scrollTop = $('#chatMessages').scrollHeight;
+  return box;
+}
+
+function chatEmpty() {
+  $('#chatMessages').replaceChildren(h('p', { class: 'chat-empty', text: 'Chiedimi come presentare un progetto, migliorare un testo o scegliere la pagina giusta. Puoi anche usare il chat senza condividere la pagina aperta.' }));
+}
+
+function showChat() {
+  const panel = $('#chatPanel');
+  panel.hidden = !panel.hidden;
+  $('#btnChat').setAttribute('aria-expanded', String(!panel.hidden));
+  if (!panel.hidden) { updateChatContext(); $('#chatInput').focus(); }
+}
+
+function attachSuggestion(box, suggestion) {
+  if (!suggestion?.before || typeof suggestion.after !== 'string') return;
+  const apply = h('button', { type: 'button', class: 'btn btn-compile', text: 'Applica al testo' });
+  const details = h('details', {}, [
+    h('summary', { text: 'Vedi la modifica proposta' }),
+    h('div', {}, [h('strong', { text: 'Prima' }), h('pre', { text: suggestion.before })]),
+    h('div', {}, [h('strong', { text: 'Dopo' }), h('pre', { text: suggestion.after })]),
+  ]);
+  box.append(h('div', { class: 'chat-proposal' }, [
+    h('strong', { text: `Modifica proposta per ${suggestion.path}` }), details, apply,
+  ]));
+  apply.addEventListener('click', () => {
+    if (state.current?.path !== suggestion.path || state.view !== 'code') {
+      toast(`Apri ${suggestion.path} prima di applicare la modifica`, 'warn', 5000);
+      return;
+    }
+    const before = suggestion.before;
+    const source = ta.value;
+    const at = source.indexOf(before);
+    if (at < 0 || source.indexOf(before, at + before.length) !== -1) {
+      toast('Il testo è cambiato: chiedi una nuova proposta prima di applicarla', 'warn', 5000);
+      return;
+    }
+    setText(source.slice(0, at) + suggestion.after + source.slice(at + before.length));
+    ta.focus();
+    ta.setSelectionRange(at, at + suggestion.after.length);
+    apply.disabled = true;
+    apply.textContent = 'Applicata · da salvare';
+    toast('Modifica inserita. Premi ⌘S per salvarla e vedere l’anteprima.');
+  });
+}
+
+$('#btnChat').addEventListener('click', showChat);
+$('#chatClose').addEventListener('click', showChat);
+$('#chatNew').addEventListener('click', () => {
+  if (chatBusy) return;
+  chatHistory = [];
+  chatEmpty();
+  $('#chatState').textContent = '';
+  $('#chatInput').focus();
+});
+$('#chatInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+    e.preventDefault();
+    $('#chatForm').requestSubmit();
+  }
+});
+$('#chatForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const message = $('#chatInput').value.trim();
+  if (!message || chatBusy) return;
+  const include = $('#chatIncludeFile').checked && !$('#chatIncludeFile').disabled
+    && state.view === 'code' && !!state.current?.editable;
+  const path = include ? state.current.path : '';
+  const content = include ? ta.value : '';
+  const history = chatHistory.slice(-8);
+  if ($('.chat-empty', $('#chatMessages'))) $('#chatMessages').replaceChildren();
+  chatMessage('user', message);
+  $('#chatInput').value = '';
+  chatBusy = true;
+  $('#chatSend').disabled = true;
+  $('#chatNew').disabled = true;
+  $('#chatState').textContent = 'Codex sta rispondendo…';
+  try {
+    const answer = await api.post('/api/chat', { message, history, include_file: include, path, content });
+    chatHistory.push({ role: 'user', content: message }, { role: 'assistant', content: answer.reply });
+    const box = chatMessage('assistant', answer.reply);
+    attachSuggestion(box, answer.suggestion);
+    $('#chatState').textContent = '';
+  } catch (err) {
+    chatMessage('error', err.message);
+    $('#chatState').textContent = 'Riprova quando vuoi';
+  } finally {
+    chatBusy = false;
+    $('#chatSend').disabled = false;
+    $('#chatNew').disabled = false;
+    $('#chatInput').focus();
+  }
+});
+chatEmpty();
+
 // Scrivi: tutto lo spazio al testo. Anteprima: tutto al sito. Diviso: entrambi.
 function setViewMode(mode) {
   state.viewMode = mode;
@@ -2000,6 +2117,7 @@ window.addEventListener('beforeunload', e => { if (isDirty() || layoutDirty()) {
   $('#siteTitle').textContent = st.title || 'Sito';
   document.title = `${st.title || 'Sito'} · editor`;
   if (!st.quarto) toast('Quarto non trovato: la compilazione non funzionerà (README §1)', 'error', 10000);
+  if (!st.chat) { $('#btnChat').disabled = true; $('#btnChat').title = 'Codex CLI non trovato: vedi README'; }
   if (store.get('sidebar', true) === false) document.body.classList.add('no-sidebar');
   $('#autoToggle').checked = state.auto;
   fitPreview();

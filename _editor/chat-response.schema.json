@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "reply": { "type": "string" },
+    "before": { "type": "string" },
+    "after": { "type": "string" }
+  },
+  "required": ["reply", "before", "after"],
+  "additionalProperties": false
+}

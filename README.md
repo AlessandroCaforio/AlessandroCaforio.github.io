@@ -8,11 +8,11 @@ a Quarto site about forecasting, time series, and reproducible data work.
 - **Projects:** a benchmark of Italian electricity demand using Terna's public
   Total Load API. The [benchmark script](projects/energy-demand/benchmark.py)
   recomputes the reported metrics from a local Parquet extract.
+- **Data Sciences:** public notebooks on linear regression and PyTorch autograd.
 - **About:** professional background and contact details.
 
-Writing, reading notes, and notebooks are kept as drafts until they are ready
-to publish. The production build uses `draft-mode: gone`; the local editor
-shows drafts for review.
+Some writing and reading notes remain drafts. The production build uses
+`draft-mode: gone`; the local editor shows drafts for review.
 
 ## Edit and preview
 
@@ -35,6 +35,13 @@ of Quarto. For a production build:
 ```bash
 ./.tools/bin/quarto render
 ```
+
+**Chat AI** in the editor uses the local Codex CLI signed in with your ChatGPT
+account. It sends your message and, only when the checkbox is selected, the
+currently open page to Codex. It can suggest an exact text change for your
+review. **Applica al testo** changes only the unsaved editor text; **⌘S** saves
+it locally and **Pubblica** is still a separate step. The editor sends no
+other files, and no API key is stored in this repository.
 
 ## Publish
 
