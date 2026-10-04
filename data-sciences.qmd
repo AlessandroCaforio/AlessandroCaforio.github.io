@@ -1,0 +1,34 @@
+---
+title: "Data Sciences"
+description: "My working notebooks on statistical learning and neural networks, with code, outputs, and sources."
+toc: false
+---
+
+These are notebooks from my own study and experiments. Each one shows the code,
+the reasoning behind it, and the result I can check. I will add to this section
+as the exercises develop.
+
+::: {.project-card}
+### [Linear regression from scratch](notebooks/islp-03-linear-regression/index.ipynb)
+
+I derive least-squares coefficients and their standard errors, implement the
+calculations in a small Python class, and compare the fitted coefficients with
+scikit-learn. The example uses the public Advertising dataset from
+*An Introduction to Statistical Learning*.
+
+::: {.stack}
+Python · NumPy · statistics · scikit-learn
+:::
+:::
+
+::: {.project-card}
+### [From a computational graph to one neuron](notebooks/neural-autograd/index.ipynb)
+
+A short, runnable note from my ongoing neural-network exercises. I calculate
+gradients by hand, check them against PyTorch autograd, and apply the chain rule
+to the weights and bias of one tanh neuron.
+
+::: {.stack}
+Python · PyTorch · gradients · neural networks
+:::
+:::

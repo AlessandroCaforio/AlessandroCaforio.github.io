@@ -26,6 +26,8 @@ website:
     left:
       - href: projects.qmd
         text: Projects
+      - href: data-sciences.qmd
+        text: Data Sciences
       - href: about.qmd
         text: About
     right:

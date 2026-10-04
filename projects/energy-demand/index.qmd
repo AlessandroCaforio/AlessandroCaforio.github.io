@@ -1,7 +1,7 @@
 ---
 title: "Italian electricity demand"
-subtitle: "A reproducible benchmark before the model"
-description: "A public-data forecasting project with a measured Terna comparison, a documented pipeline, and explicit next steps."
+subtitle: "Four months of measured baselines before the model"
+description: "A public-data forecasting project with a four-month Terna comparison, coverage checks, and explicit next steps."
 date: 2026-08-18
 categories: [forecasting, time series, data engineering]
 toc: true
@@ -45,6 +45,31 @@ would give wrong matches wherever the extract has a gap. February has complete
 
 [Read the benchmark script](benchmark.py){.more-link}
 
+## Does the result hold beyond February?
+
+I repeated the same comparison for every complete month from February through
+May 2026: **11,520 national observations** in total. Each monthly window has
+all its expected 15 minute UTC timestamps; all three forecasts are scored on
+exactly the same observations.
+
+| Month | Observations | Terna MAE (MW) | Previous week MAE (MW) | Previous day MAE (MW) |
+|---|---:|---:|---:|---:|
+| February | 2,688 | **531** | 946 | 3,319 |
+| March | 2,976 | **501** | 808 | 3,300 |
+| April | 2,880 | **650** | 1,886 | 2,955 |
+| May | 2,976 | **585** | 1,810 | 3,118 |
+| **Pooled** | **11,520** | **567** | **1,369** | **3,171** |
+
+Terna's published forecast has the lowest MAE in each month. The weekly naive
+baseline is much less stable: its error more than doubles between March and
+April. This comparison shows the change, but it does not identify its cause.
+The pooled row scores all 11,520 observations together rather than averaging
+the four monthly MAEs.
+
+Run `python benchmark.py /path/to/total_load.parquet --monthly` to reproduce
+this table from a Terna extract with the same fields. The script rejects an
+incomplete month instead of quietly scoring the rows that happen to be present.
+
 ## The data pipeline
 
 The broader project downloads public Terna data into a local Parquet layer. Its
@@ -57,6 +82,10 @@ sorting or aggregating, so the repeated hour when clocks change remains
 unambiguous. The February benchmark uses UTC timestamps and stays away from a
 clock change.
 
+The coverage check also found a 48-hour gap in January 2026 in this local
+extract. June is only a partial month. I excluded both from the monthly table;
+otherwise a seemingly comparable score would describe a different time window.
+
 ## What is built, and what comes next
 
 The `handcast` package contains mean and seasonal naive forecasters, error
@@ -65,9 +94,10 @@ rolling-origin split and recursive forecasting methods are still
 unimplemented. I am not presenting a fitted model score until those methods
 support a proper out-of-sample comparison.
 
-This table covers one month and national load only. It does not establish
-performance across seasons or regions. The next useful result is a rolling
-backtest across several origins, with Terna and the weekly naive forecast in
-every comparison. Any model that uses observed weather must also be labeled
+The expanded table covers four months and national load only. It is a benchmark
+of existing forecasts and timestamp-matched naive rules, not a backtest of a
+model I trained. The next useful result is a rolling backtest of a fitted model
+across several origins, with Terna and the weekly naive forecast in every
+comparison. Any model that uses observed weather must also be labeled
 accordingly: Terna's day-ahead forecast did not have access to the next day's
 observed temperature.

@@ -17,10 +17,12 @@ I work on **demand forecasting** in retail, where the hard part is often making
 the data and evaluation trustworthy enough to guide a decision.
 
 Here I use public datasets to test forecasting methods, build the underlying
-tools, and show the baselines alongside the results.
+tools, and show the baselines alongside the results. I also share notebooks
+that show how I work through statistical learning and neural networks.
 :::
 
 [Explore the project →](projects/energy-demand/index.qmd){.hero-link}
+[Data Sciences notebooks](data-sciences.qmd){.hero-link .hero-link-secondary}
 [About & contact](about.qmd){.hero-link .hero-link-secondary}
 
 :::
@@ -33,9 +35,10 @@ Selected work
 ### [Italian electricity demand — forecasting from the ground up](projects/energy-demand/index.qmd)
 
 I built a pipeline for Terna's public electricity load data and tested simple
-forecasts on national demand. In a February 2026 benchmark, the same time last
-week baseline had **946 MW MAE**; Terna's published forecast had **531 MW MAE**
-on the same 2,688 observations. The project page shows the method and limits.
+forecasts on national demand. Across four complete months in 2026, the same
+time last week baseline had **1,369 MW MAE**; Terna's published forecast had
+**567 MW MAE** on the same 11,520 observations. The project page shows the
+method and limits.
 
 ::: {.stack}
 Python · pandas · time series · data quality

@@ -10,10 +10,11 @@ measured result, and the point where the evidence stops.
 ::: {.project-card}
 ### [Italian electricity demand — forecasting from the ground up](projects/energy-demand/index.qmd)
 
-Public Terna load data, a documented cleaning pipeline, and a measured national
-benchmark. On 2,688 observations in February 2026, the weekly naive forecast
-had 946 MW MAE versus 531 MW for Terna's published forecast. The comparison is
-reproducible and the next modeling steps are clearly marked as work in progress.
+Public Terna load data, coverage checks, and a measured national benchmark.
+Across 11,520 observations in four complete months of 2026, the weekly naive
+forecast had 1,369 MW MAE versus 567 MW for Terna's published forecast. The
+comparison is reproducible and the next modeling steps are clearly marked as
+work in progress.
 
 ::: {.stack}
 Python · pandas · time series · Terna public API
